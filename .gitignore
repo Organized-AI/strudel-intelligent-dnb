@@ -10,13 +10,13 @@ Thumbs.db
 node_modules/
 package-lock.json
 
-# Samples (too large for git)
-samples/
-*.wav
-*.mp3
-*.aif
-*.aiff
+# Local samples (keep README)
+samples/**/*.wav
+samples/**/*.mp3
+samples/**/*.ogg
+samples/**/*.aif
+samples/**/*.aiff
+!samples/README.md
 
 # Recordings
 recordings/
-*.wav
