@@ -1,9 +1,13 @@
 // "Atlantis Dreams"
 // Atmospheric intelligent DnB with oceanic textures
+// Using real breaks for that authentic jungle feel
 // @tempo 170 BPM
 // @by Organized AI
 
 setcps(170/60)
+
+// Load classic breaks
+samples('github:tidalcycles/dirt-samples')
 
 // Chord progression - darker, more mysterious
 let chords = chord("<Abm9 Dbm9 Gbmaj7 Bmaj7>/4").dict('ireal')
@@ -11,17 +15,25 @@ let chords = chord("<Abm9 Dbm9 Gbmaj7 Bmaj7>/4").dict('ireal')
 stack(
   // === DRUMS - Minimal, rolling ===
   
-  // Subtle kick
+  // Main break - sparse slice pattern
+  s("amen")
+    .fit()
+    .slice(8, "0 ~ ~ 3 ~ ~ 6 ~")
+    .gain(0.6)
+    .room(0.3)
+    .lpf(6000),
+
+  // Subtle kick reinforcement
   s("bd ~ ~ ~ ~ ~ bd ~")
     .bank("RolandTR909")
-    .gain(0.75)
+    .gain(0.5)
     .lpf(90)
     .room(0.15),
 
   // Sparse snare
   s("~ ~ ~ sd ~ ~ ~ ~")
     .bank("RolandTR909")
-    .gain(0.7)
+    .gain(0.55)
     .room(0.35)
     .delay(0.2)
     .delaytime(0.25),
@@ -29,7 +41,7 @@ stack(
   // Shimmering hats
   s("hh*12")
     .bank("RolandTR909")
-    .gain(perlin.range(0.15, 0.35).slow(2))
+    .gain(perlin.range(0.12, 0.28))
     .hpf(8000)
     .pan(perlin.range(0.2, 0.8).slow(3))
     .room(0.4),
@@ -37,7 +49,7 @@ stack(
   // Ride cymbal texture
   s("~ ~ rd ~ ~ rd ~ ~")
     .bank("RolandTR909")
-    .gain(0.2)
+    .gain(0.18)
     .room(0.5)
     .hpf(3000),
 

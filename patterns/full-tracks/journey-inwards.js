@@ -1,9 +1,13 @@
 // "Journey Inwards"
 // Introspective intelligent DnB - late night headphone music
+// Minimal break usage, focus on atmosphere
 // @tempo 168 BPM (slightly slower for mood)
 // @by Organized AI
 
 setcps(168/60)
+
+// Load classic breaks
+samples('github:tidalcycles/dirt-samples')
 
 // Progression - melancholic jazz
 let chords = chord("<Am9 Em9 Fmaj9 Dm9>/4").dict('ireal')
@@ -11,24 +15,32 @@ let chords = chord("<Am9 Em9 Fmaj9 Dm9>/4").dict('ireal')
 stack(
   // === DRUMS - Ultra minimal ===
   
-  // Kick with swing
+  // Sparse break - just accents
+  s("breaks125")
+    .fit()
+    .slice(8, "0 ~ ~ ~ ~ ~ 6 ~")
+    .gain(0.45)
+    .room(0.4)
+    .lpf(5000),
+
+  // Soft kick
   s("bd ~ ~ ~ bd ~ ~ ~")
     .bank("RolandTR909")
-    .gain(0.7)
+    .gain(0.55)
     .lpf(85)
     .nudge("0 0 0 0 0.015 0 0 0"),
 
   // Soft snare
   s("~ ~ ~ sd ~ ~ ~ sd:1?")
     .bank("RolandTR909")
-    .gain(0.6)
+    .gain(0.5)
     .room(0.4)
     .size(0.5),
 
-  // Brushed hats
+  // Brushed hats - very quiet
   s("hh*8")
     .bank("RolandTR909")
-    .gain(perlin.range(0.1, 0.25).slow(4))
+    .gain(perlin.range(0.08, 0.2).slow(4))
     .hpf(9000)
     .room(0.3),
 

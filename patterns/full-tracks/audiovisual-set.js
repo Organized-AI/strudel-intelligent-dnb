@@ -1,9 +1,13 @@
 // "Logical Visions" - Complete Audiovisual Set
 // Full intelligent DnB track with synchronized Hydra visuals
+// Real breaks + audio-reactive visuals
 // @tempo 170 BPM
 // @by Organized AI
 
 setcps(170/60)
+
+// Load classic breaks
+samples('github:tidalcycles/dirt-samples')
 
 // Initialize Hydra
 await initHydra()
@@ -41,48 +45,42 @@ noise(3, 0.08)
 let chords = chord("<Cm9 Fm9 Bbm9 Ebmaj7>/4").dict('ireal')
 
 stack(
-  // === DRUMS ===
+  // === DRUMS - Real rolling break ===
   
-  // Kick with sub weight
+  // Main chopped break
+  s("breaks165")
+    .fit()
+    .slice(8, "0 0 6 3 0 2 6 7")
+    .gain(0.7)
+    .room(0.2),
+
+  // Ghost break layer
+  s("breaks165")
+    .fit()
+    .chop(16)
+    .gain(0.1)
+    .hpf(3500)
+    .room(0.4)
+    .pan(perlin.range(0.3, 0.7)),
+
+  // Kick reinforcement
   s("bd ~ ~ ~ [~ bd] ~ bd ~")
     .bank("RolandTR909")
-    .gain(0.85)
+    .gain(0.5)
     .lpf(100)
     .room(0.1),
-
-  // Main snare
-  s("~ sd ~ ~ ~ sd ~ ~")
-    .bank("RolandTR909")
-    .gain(0.75)
-    .room(0.3)
-    .size(0.4),
-
-  // Ghost snares for rolling feel
-  s("~ ~ sd:3? ~ ~ ~ sd:2? sd:3?")
-    .bank("RolandTR909")
-    .gain(0.22)
-    .room(0.4)
-    .pan(sine.range(0.3, 0.7).slow(2)),
-
-  // Rolling hi-hats with dynamics
-  s("hh*16")
-    .bank("RolandTR909")
-    .gain(perlin.range(0.18, 0.38))
-    .pan(sine.range(0.35, 0.65).slow(2))
-    .hpf(7000)
-    .room(0.2),
 
   // Open hat accents
   s("~ ~ ~ oh ~ ~ oh ~")
     .bank("RolandTR909")
-    .gain(0.32)
+    .gain(0.28)
     .cut(1)
     .room(0.35),
 
   // Ride shimmer
   s("~ ~ rd? ~ ~ ~ rd? ~")
     .bank("RolandTR909")
-    .gain(0.18)
+    .gain(0.15)
     .hpf(5000)
     .room(0.5),
 
@@ -98,17 +96,17 @@ stack(
     .sustain(0.5)
     .release(0.4),
 
-  // Mid-bass layer for definition
+  // Mid-bass layer
   note("<c2 ~ c2 ~> <f2 ~ ~ f2> <bb1 ~ bb1 ~> <eb2 ~ ~ ~>")
     .s("triangle")
-    .gain(0.18)
+    .gain(0.15)
     .lpf(300)
     .hpf(80)
     .room(0.2),
 
   // === CHORDS & MELODY ===
   
-  // Rhodes - the heart of intelligent DnB
+  // Rhodes
   chords.voicing()
     .s("gm_epiano1")
     .gain(0.32)
@@ -118,7 +116,7 @@ stack(
     .delayfeedback(0.32)
     .lpf(4500),
 
-  // Pad layer - atmospheric wash
+  // Pad layer
   chords.voicing()
     .s("sawtooth")
     .attack(2)
@@ -131,7 +129,7 @@ stack(
     .room(0.7)
     .size(0.85),
 
-  // String layer - cinematic depth
+  // String layer
   chords.voicing()
     .s("gm_strings")
     .attack(2.5)

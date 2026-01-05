@@ -1,9 +1,13 @@
 // Hydra Full Performance Template
-// Complete audiovisual intelligent DnB set
+// Complete audiovisual intelligent DnB set with real breaks
+// Multiple visual scenes to switch between
 // @tempo 170 BPM
 // @by Organized AI
 
 setcps(170/60)
+
+// Load classic breaks
+samples('github:tidalcycles/dirt-samples')
 
 // Initialize Hydra with options
 await initHydra({ 
@@ -79,33 +83,35 @@ let chords = chord("<Cm9 Fm9 Bbm9 Ebmaj7>/4").dict('ireal')
 
 // === LAYER 1: DRUMS ===
 
-// Kick
-$: s("bd ~ ~ ~ [~ bd] ~ bd ~")
-  .bank("RolandTR909")
-  .gain(0.8)
-  .lpf(100)
+// Main break - uncomment one style
+$: s("breaks165")
+  .fit()
+  .slice(8, "0 0 6 3 0 2 6 7")
+  .gain(0.7)
+  .room(0.2)
 
-// Snare (uncomment to add)
-// $: s("~ sd ~ ~ ~ sd ~ ~")
+// Alternative: Amen
+// $: s("amen")
+//   .fit()
+//   .slice(8, "0 0 6 3 0 2 6 7")
+//   .gain(0.7)
+//   .room(0.2)
+
+// Kick reinforcement (uncomment to add)
+// $: s("bd ~ ~ ~ [~ bd] ~ bd ~")
 //   .bank("RolandTR909")
-//   .gain(0.75)
-//   .room(0.3)
+//   .gain(0.5)
+//   .lpf(100)
 
-// Ghost snares
-// $: s("~ ~ sd:3? ~ ~ ~ ~ sd:3?")
+// Extra hats (uncomment to add)
+// $: s("hh*16")
 //   .bank("RolandTR909")
-//   .gain(0.2)
-//   .room(0.4)
-
-// Hats
-$: s("hh*16")
-  .bank("RolandTR909")
-  .gain(perlin.range(0.2, 0.4))
-  .hpf(7000)
+//   .gain(perlin.range(0.15, 0.35))
+//   .hpf(7000)
 
 // === LAYER 2: BASS ===
 
-// Sub bass
+// Sub bass (uncomment to add)
 // $: note("<c1 ~ c1 ~> <f1 ~ ~ f1> <bb0 ~ bb0 ~> <eb1 ~ ~ ~>")
 //   .s("sine")
 //   .gain(0.65)
@@ -113,7 +119,7 @@ $: s("hh*16")
 
 // === LAYER 3: CHORDS ===
 
-// Rhodes
+// Rhodes (uncomment to add)
 // $: chords.voicing()
 //   .s("gm_epiano1")
 //   .gain(0.3)
@@ -123,7 +129,7 @@ $: s("hh*16")
 
 // === LAYER 4: ATMOSPHERE ===
 
-// Strings
+// Strings (uncomment to add)
 // $: chords.voicing()
 //   .s("gm_strings")
 //   .attack(2)

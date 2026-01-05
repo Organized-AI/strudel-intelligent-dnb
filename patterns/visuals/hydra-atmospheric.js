@@ -5,6 +5,9 @@
 
 setcps(170/60)
 
+// Load classic breaks
+samples('github:tidalcycles/dirt-samples')
+
 // Initialize Hydra
 await initHydra()
 
@@ -30,24 +33,33 @@ noise(3, 0.1)
   )
   .out()
 
-// Atmospheric track
+// === AUDIO: Atmospheric track ===
+
 let chords = chord("<Abm9 Dbm9 Gbmaj7 Bmaj7>/4").dict('ireal')
 
 stack(
-  // Minimal drums
+  // Minimal break
+  s("amen")
+    .fit()
+    .slice(8, "0 ~ ~ 3 ~ ~ 6 ~")
+    .gain(0.5)
+    .room(0.35)
+    .lpf(5000),
+
+  // Sparse drums
   s("bd ~ ~ ~ ~ ~ bd ~")
     .bank("RolandTR909")
-    .gain(0.7)
+    .gain(0.5)
     .lpf(90),
 
   s("~ ~ ~ sd ~ ~ ~ ~")
     .bank("RolandTR909")
-    .gain(0.6)
+    .gain(0.5)
     .room(0.4),
 
   s("hh*12")
     .bank("RolandTR909")
-    .gain(perlin.range(0.15, 0.3))
+    .gain(perlin.range(0.12, 0.25))
     .hpf(8000),
 
   // Deep sub

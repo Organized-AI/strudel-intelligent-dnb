@@ -1,45 +1,46 @@
 // "Logical Progression" 
 // Full intelligent DnB track in the Good Looking style
+// Using real breaks from dirt-samples
 // @tempo 170 BPM
 // @by Organized AI
 
 setcps(170/60)
 
+// Load classic breaks
+samples('github:tidalcycles/dirt-samples')
+
 // Define chord progression
 let chords = chord("<Cm9 Fm9 Bbm7 Ebmaj7>/4").dict('ireal')
 
 stack(
-  // === DRUMS ===
+  // === DRUMS - Real rolling break ===
   
-  // Kick pattern
+  // Main chopped break - classic jungle edit
+  s("breaks165")
+    .fit()
+    .slice(8, "0 0 6 3 0 2 6 7")
+    .gain(0.7)
+    .room(0.2),
+
+  // Ghost break layer
+  s("breaks165")
+    .fit()
+    .chop(16)
+    .gain(0.12)
+    .hpf(3000)
+    .room(0.4)
+    .pan(perlin.range(0.3, 0.7)),
+
+  // Sub kick reinforcement
   s("bd ~ ~ ~ [~ bd] ~ bd ~")
     .bank("RolandTR909")
-    .gain(0.85)
+    .gain(0.5)
     .lpf(100),
-
-  // Snare on 2 and 4
-  s("~ sd ~ ~ ~ sd ~ ~")
-    .bank("RolandTR909")
-    .gain(0.8)
-    .room(0.25),
-
-  // Ghost snares for rolling feel
-  s("~ ~ sd:3? ~ ~ ~ ~ sd:3?")
-    .bank("RolandTR909")
-    .gain(0.25)
-    .room(0.4),
-
-  // Hi-hats with velocity variation
-  s("hh*16")
-    .bank("RolandTR909")
-    .gain(perlin.range(0.2, 0.4))
-    .pan(sine.range(0.35, 0.65).slow(2))
-    .hpf(7000),
 
   // Open hat accents
   s("~ ~ ~ oh ~ ~ oh ~")
     .bank("RolandTR909")
-    .gain(0.35)
+    .gain(0.3)
     .cut(1),
 
   // === BASS ===
